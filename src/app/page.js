@@ -1,4 +1,4 @@
-import { Prisma } from "../../lib/prisma";
+import { Prisma } from "../lib/prisma";
 
 export default async function Home() {
 
