@@ -1,23 +1,12 @@
-export default function Home() {
-  //Sample blog post data
-  const blogPost = [
-    {
-      id: 1,
-      title: "SAMPLE BLOG POST 1",
-      author: "DAVID X",
-      date: "2024-12-30",
-      excerpt:
-        "SAMPLE TEXT SAMPLE TEXTSAMPLE TEXT SAMPLE TEXTSAMPLE TEXTSAMPLE TEXT SAMPLE TEXT SAMPLE TEXT",
-    },
-    {
-      id: 2,
-      title: "SAMPLE BLOG POST 2",
-      author: "BOB A",
-      date: "2024-12-31",
-      excerpt:
-        "SAMPLE TEXT SAMPLE TEXTSAMPLE TEXT SAMPLE TEXTSAMPLE TEXTSAMPLE TEXT SAMPLE TEXT SAMPLE TEXT",
-    },
-  ];
+import { Prisma } from "../../lib/prisma";
+
+export default async function Home() {
+
+  const blogPost = await Prisma.post.findMany({
+    orderBy: {
+      date: 'desc'
+    }
+  })
 
   return (
     <div className="min-h-screen w-4/5 mx-auto py-8">
