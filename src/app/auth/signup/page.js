@@ -15,13 +15,13 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('api/auth/signup', {
+      const res = await fetch('../../api/auth/signup', {
         method: 'POST',
-        headers: { 'Content-Type': application/json },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
       if (res.ok) {
-        router.push('auth/login')
+        router.push('/login')
       }
     } catch (error) {
       console.error('Signup failed:', error)
@@ -29,7 +29,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="p-8 w-96">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
           Create Account
@@ -41,7 +41,7 @@ export default function SignUp() {
               placeholder="Name"
               className="w-full p-2 border rounded"
               value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              onChange={(e) => setFormData({...formData, nickname: e.target.value})}
               >
             </input>
             <input
