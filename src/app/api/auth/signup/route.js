@@ -5,6 +5,13 @@ export async function POST(req) {
   try {
     const { email, password, name } = await req.json();
 
+    if (!email || !password || !name) {
+      return NextResponse.json(
+        { error: "Failed to Create User" },
+        { status: 500 }
+      );
+    }
+
     await Prisma.user.create({
       data: {
         email,

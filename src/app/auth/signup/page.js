@@ -7,7 +7,7 @@ export default function SignUp() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    nickname: "",
+    name: "",
   });
 
   const router = useRouter()
@@ -41,7 +41,7 @@ export default function SignUp() {
               placeholder="Name"
               className="w-full p-2 border rounded"
               value={formData.name}
-              onChange={(e) => setFormData({...formData, nickname: e.target.value})}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
               >
             </input>
             <input

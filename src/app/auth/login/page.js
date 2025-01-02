@@ -10,21 +10,30 @@ export default function Login() {
     password: "",
   });
 
+
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await signIn("credentials", {
-        ...credentials,
-        redirect: false,
+      const res = await fetch("../../api/auth/login", {
+        method: 'POST',
+        header: {'content-Type': 'application/json'},
+        body: JSON.stringify(credentials)
       });
-      if (!res.error) {
-        router.push("/");
+
+      const data = await res.json()
+      if(!res.ok) {
+        setError(data.error || "Login Failed")
+        return;
       }
+
+      router.push("/")
+
     } catch (error) {
-      console.error("Login failed: ", error);
+      setError("Login failed")
     }
   };
 
@@ -32,6 +41,9 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg w-96">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Login</h2>
+        {error && (
+          <p className="text-red-500 text-sm mb-4">{error}</p>
+        )}
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             <input
@@ -42,6 +54,7 @@ export default function Login() {
               onChange={(e) =>
                 setCredentials({ ...credentials, email: e.target.value })
               }
+              required
             />
             <input
               type="password"
@@ -51,6 +64,7 @@ export default function Login() {
               onChange={(e) =>
                 setCredentials({ ...credentials, password: e.target.value })
               }
+              required
             />
             <button
               type="submit"
@@ -58,8 +72,11 @@ export default function Login() {
             >
               Login
             </button>
-            <Link href="/auth/signup" className="mt-10">
-              Regiseter
+            <Link 
+              href="/auth/signup" 
+              className="block text-center text-sm text-gray-600 hover:text-gray-800 mt-4"
+            >
+              Register
             </Link>
           </div>
         </form>
