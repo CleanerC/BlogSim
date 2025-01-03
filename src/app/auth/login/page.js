@@ -10,30 +10,28 @@ export default function Login() {
     password: "",
   });
 
-
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await fetch("../../api/auth/login", {
-        method: 'POST',
-        header: {'content-Type': 'application/json'},
-        body: JSON.stringify(credentials)
+        method: "POST",
+        header: { "content-Type": "application/json" },
+        body: JSON.stringify(credentials),
       });
 
-      const data = await res.json()
-      if(!res.ok) {
-        setError(data.error || "Login Failed")
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Login Failed");
         return;
       }
 
-      router.push("/")
-
+      //updated to ensure full refresh
+      window.location.href = "/";
     } catch (error) {
-      setError("Login failed")
+      setError("Login failed");
     }
   };
 
@@ -41,9 +39,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg w-96">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Login</h2>
-        {error && (
-          <p className="text-red-500 text-sm mb-4">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             <input
@@ -72,8 +68,8 @@ export default function Login() {
             >
               Login
             </button>
-            <Link 
-              href="/auth/signup" 
+            <Link
+              href="/auth/signup"
               className="block text-center text-sm text-gray-600 hover:text-gray-800 mt-4"
             >
               Register
