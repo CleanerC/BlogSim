@@ -12,13 +12,18 @@ export default function RootLayout({ children }) {
           Login
         </Link>
         <div className="w-full p-4 border-b-4 border-gray-700">
-          <Link href="/" className="text-4xl font-bold tracking-wider">MYBLOG</Link>
+          <Link href="/" className="text-4xl font-bold tracking-wider">
+            MYBLOG
+          </Link>
         </div>
 
         {/* create button */}
-        <button className="fixed rounded-full p-6 border-4 border-black bottom-4 right-4 shadow-xl cursor-pointer hover:scale-105 transition-all hover:font-bold">
+        <Link
+          href="/create-blog"
+          className="fixed rounded-full p-6 border-4 border-black bottom-4 right-4 shadow-xl cursor-pointer hover:scale-105 transition-all hover:font-bold"
+        >
           Create a Blog
-        </button>
+        </Link>
 
         {children}
       </body>

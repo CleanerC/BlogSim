@@ -16,11 +16,21 @@ export async function POST(req) {
     return NextResponse.json({ error: "Invalid password" }, { status: 401 });
   }
 
-  return NextResponse.json(
-    {user: {
-      id: user.id,
-      email: user.email,
-      name: user.name
-    }}
-  )
+  const session = {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+  };
+
+  const response = NextResponse.json(
+    { message: "Login Successful" },
+    { id: user.id, email: user.email, name: user.name }
+  );
+
+  response.cookies.set({
+    name: "session",
+    value: JSON.stringify(session),
+  });
+
+  return response
 }
